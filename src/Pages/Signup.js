@@ -3,6 +3,7 @@ import instaLogo from "../Images/Logo-Instagram-1.png";
 import facebookLogo from "../Images/facebook-logo-clipart-hd-10.jpg";
 import playStoreLogo from "../Images/google-play-badge.png";
 import microsoftLogo from "../Images/microsoft.png";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   return (
@@ -72,7 +73,9 @@ const Signup = () => {
       {/*  have an account section  */}
       <div className="text-center border-2 border-slate-300 p-4 text-sm">
         Have an account?
+        <Link to="/login">
         <span className="font-bold text-blue-500 cursor-pointer"> Log in </span>
+        </Link>
       </div>
 
       {/* get the app section */}
