@@ -6,17 +6,21 @@ import microsoftLogo from "../Images/microsoft.png";
 
 const Login = () => {
   return (
-    <div className="flex flex-col max-w-sm mx-auto justify-center content-center  space-y-4  mt-3 w-full">
+    <div className="flex flex-col max-w-[350px] mx-auto justify-center content-center  space-y-4  mt-3 w-full"  >
+      
+      {/* form section */}
       <div className="border-2 border-slate-300 p-4 flex flex-col items-center py-2 px-14 ">
+        {/* logo */}
         <img className="w-44 h-24 mb-2" src={instaLogo} alt="" />
+        {/* form */}
         <form className="w-full mx-12">
           <input
-            className="w-full p-2 border rounded mb-3 text-sm"
+            className="w-full p-2 border rounded mb-3 text-sm bg-gray-50"
             type="text"
-            placeholder="Phone number, username, or email"
+            placeholder="Mobile number, Username, or Email"
           />
           <input
-            className="w-full p-2 border rounded mb-3 text-sm"
+            className="w-full p-2 border rounded mb-3 text-sm bg-gray-50"
             type="password"
             placeholder="Password"
           />
@@ -32,6 +36,7 @@ const Login = () => {
           <p className="mx-2 text-gray-600 text-sm">OR</p>
           <span className="border-t border-gray-400 w-28"></span>
         </div>
+        {/* log in with facebook  */}
         <div className="flex items-center space-x-2 mt-4">
           <img className="w-4 h-4" src={facebookLogo} alt="Facebook" />
           <p className="text-blue-800 text-sm">Login with Facebook</p>
@@ -40,11 +45,13 @@ const Login = () => {
           <p className="text-blue-500 text-xs my-4">Forgot password</p>
         </div>
       </div>
+      {/* don't have an account section  */}
       <div className="text-center border-2 border-slate-300 p-4 text-sm">
         Don't have an account?{" "}
         <span className="font-bold text-blue-500 cursor-pointer">Sign Up</span>
       </div>
       <div className="text-center">
+        {/* get the app section  */}
         <p className="my-2 text-sm">Get the app</p>
 
         <div className="flex justify-center space-x-2 content-center">
