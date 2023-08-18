@@ -59,7 +59,7 @@ const Sidebar = () => {
           <li className=" p-3 hover:bg-gray-900 rounded-md my-1">
             <Link to="/messages" onClick={!setShowIconOnly}>
               <MessageIcon fontSize="medium" className="mr-4" />
-              messages
+              Messages
             </Link>
           </li>
           <li className=" p-3 hover:bg-gray-900 rounded-md my-1">
