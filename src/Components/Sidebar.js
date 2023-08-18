@@ -12,9 +12,10 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import SettingsIcon from "@mui/icons-material/Settings";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import instaLogo from "../Images/Logo-Instagram-1.png";
+import { Link } from "react-router-dom";
 const Sidebar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+  const [showIconOnly, setShowIconOnly] = useState(false);
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -33,74 +34,74 @@ const Sidebar = () => {
       <div>
         <ul className="p-4">
           <li className=" p-3  hover:bg-gray-900 rounded-md my-1">
-            <a href="/">
+            <Link to="/">
               <HomeIcon fontSize="medium" className="mr-4" /> Home
-            </a>
+            </Link>
           </li>
           <li className=" p-3  hover:bg-gray-900 rounded-md my-1">
-            <a href="/search">
+            <Link to="/search">
               <SearchIcon fontSize="medium" className="mr-4" />
               Search
-            </a>
+            </Link>
           </li>
           <li className=" p-3  hover:bg-gray-900 rounded-md my-1">
-            <a href="/explore">
+            <Link to="/explore">
               <ExploreIcon fontSize="medium" className="mr-4" />
               Explore
-            </a>
+            </Link>
           </li>
           <li className=" p-3 hover:bg-gray-900 rounded-md my-1">
-            <a href="/reels">
+            <Link to="/reels">
               <VideoLibraryIcon fontSize="medium" className="mr-4" />
               Reels
-            </a>
+            </Link>
           </li>
           <li className=" p-3 hover:bg-gray-900 rounded-md my-1">
-            <a href="/messages">
+            <Link to="/messages" onClick={!setShowIconOnly}>
               <MessageIcon fontSize="medium" className="mr-4" />
-              Messages
-            </a>
+              messages
+            </Link>
           </li>
           <li className=" p-3 hover:bg-gray-900 rounded-md my-1">
-            <a href="/notification">
+            <Link to="/notification">
               <FavoriteBorderIcon fontSize="medium" className="mr-4" />
               Notification
-            </a>
+            </Link>
           </li>
           <li className=" p-3 hover:bg-gray-900 rounded-md my-1">
-            <a href="/create">
+            <Link to="/create">
               <AddCircleOutlineIcon fontSize="medium" className="mr-4" />
               Create
-            </a>
+            </Link>
           </li>
           <li className=" p-3 hover:bg-gray-900 rounded-md my-1">
-            <a href="/profile">
+            <Link to="/profile">
               <AccountCircleIcon fontSize="medium" className="mr-4" />
               Profile
-            </a>
+            </Link>
           </li>
           <li className="relative p-3 hover:bg-gray-900 rounded-md my-1">
-            <a href="#" onClick={toggleDropdown}>
+            <Link to="#" onClick={toggleDropdown}>
               <MenuIcon fontSize="medium" className="mr-4" />
               More
-            </a>
+            </Link>
             {/* more Dropdown  */}
             {isDropdownOpen && (
               <ul className="mt-2 absolute right-0 bottom-full bg-black border border-gray-300 rounded-lg shadow-md">
                 <li className="p-3 hover:bg-gray-900">
-                  <a href="#">
+                  <Link to="#">
                     <LightModeIcon /> Light Mode
-                  </a>
+                  </Link>
                 </li>
                 <li className="p-3 hover:bg-gray-900">
-                  <a href="#">
+                  <Link to="#">
                     <DarkModeIcon /> Dark Mode
-                  </a>
+                  </Link>
                 </li>
                 <li className="p-3 hover:bg-gray-900">
-                  <a href="#">
+                  <Link to="#">
                     <SettingsIcon /> Settings
-                  </a>
+                  </Link>
                 </li>
               </ul>
             )}
