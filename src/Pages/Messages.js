@@ -1,5 +1,7 @@
 import Sidebar from "../Components/Sidebar.js";
 import Chatlist from "../Components/Chatlist.js";
+import Chat from "../Components/Chat.js";
+
 const Messages = () => {
   return (
     <div className="flex">
@@ -15,7 +17,9 @@ const Messages = () => {
             <Chatlist/>
         </div>
         {/* chat */}
-        <div className="w-2/3 border-l border-gray-700"></div>
+        <div className="w-2/3 border-l border-gray-700">
+            <Chat/>
+        </div>
       </div>
     </div>
   );
