@@ -4,7 +4,26 @@ import facebookLogo from "../Images/fb.png";
 import playStoreLogo from "../Images/google-play-badge.png";
 import microsoftLogo from "../Images/microsoft.png";
 import { Link } from "react-router-dom";
-const Login = ({ toggleDarkMode, isDarkMode }) => {
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const handleLogIn = async (e) => {
+    e.preventDefault();
+    console.log("cliked");
+    try {
+      const res = await axios.post(
+        "https://white-waiter-xbmxc.ineuron.app:8000/api/v1/auth/signin",
+        { email, password }
+      );
+      navigate("/");
+    } catch (error) {}
+  };
   return (
     <div className="flex flex-col max-w-[350px] h-screen mx-auto justify-center content-center  space-y-4   w-full">
       {/* form section */}
@@ -17,15 +36,18 @@ const Login = ({ toggleDarkMode, isDarkMode }) => {
             className="w-full p-2 border rounded mb-3 text-xs bg-gray-50"
             type="text"
             placeholder="Mobile number, Username, or Email"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             className="w-full p-2 border rounded mb-3 text-xs bg-gray-50"
             type="password"
             placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button
             className="w-full bg-blue-400 hover:bg-blue-600 text-white p-2  rounded-xl text-base"
             type="submit"
+            onClick={handleLogIn}
           >
             Log in
           </button>
