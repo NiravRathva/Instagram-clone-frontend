@@ -5,9 +5,9 @@ import playStoreLogo from "../Images/google-play-badge.png";
 import microsoftLogo from "../Images/microsoft.png";
 import { Link } from "react-router-dom";
 
-const Signup = () => {
+const Signup = ({isDarkMode }) => {
   return (
-    <div className="flex flex-col max-w-[350px] mx-auto justify-center content-center  space-y-4  mt-3 w-full">
+    <div className="flex flex-col max-w-[350px] mx-auto justify-center content-center  space-y-4  mt-4 w-full">
       {/* login form section */}
       <div className="border-2 border-slate-300 p-4 flex flex-col items-center py-2 px-14 ">
         {/* logo */}

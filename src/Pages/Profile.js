@@ -2,18 +2,18 @@ import React from "react";
 import Sidebar from "../Components/Sidebar.js";
 import SettingsIcon from "@mui/icons-material/Settings";
 
-const Profile = () => {
+const Profile = ({ toggleDarkMode, isDarkMode }) => {
   return (
     <div className="flex">
       {/* Sidebar */}
-      <div className="w-1/6 h-screen bg-black text-white border-r border-gray-700">
-        <Sidebar />
+      <div className="w-1/6 h-screen  border-r border-gray-700">
+        <Sidebar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col ml-1/6 w-5/6 p-8 bg-black text-white m">
+      <div className="flex flex-col ml-1/6 w-5/6 p-8  m">
         {/* Profile */}
-        <div className="flex bg-black   text-white px-8  profile-section border-b border-gray-700 mx-4">
+        <div className="flex px-8  profile-section border-b border-gray-700 mx-4">
           <div>
             <div className="mb-8">
               {/* Profile pic */}
@@ -47,10 +47,20 @@ const Profile = () => {
               {/* User details */}
 
               <h6 className="text-lg font-semibold  mr-3">_careless_dude_</h6>
-              <button className="text-sm font-medium mr-3 bg-gray-700 border outline-none border-none hover:bg-gray-800 rounded py-1 px-3 mr-2">
+              <button className={` ${
+                  isDarkMode
+                    ? "bg-gray-700 hover:bg-gray-800 text-white"
+                    : "bg-gray-200 hover:bg-gray-300 text-black"
+                } text-sm font-medium mr-3  border outline-none border-none  rounded py-1 px-3 mr-2`}>
                 Edit Profile
               </button>
-              <button className="text-sm font-medium mr-3 bg-gray-700 border outline-none border-none hover:bg-gray-800 rounded py-1 px-3">
+              <button
+                className={` ${
+                  isDarkMode
+                    ? "bg-gray-700 hover:bg-gray-800 text-white"
+                    : "bg-gray-200 hover:bg-gray-300 text-black"
+                } text-sm font-medium mr-3  border outline-none border-none  rounded py-1 px-3`}
+              >
                 View Archive
               </button>
               <SettingsIcon className="text-gray-400 " />

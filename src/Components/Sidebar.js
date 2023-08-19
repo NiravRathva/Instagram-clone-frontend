@@ -13,9 +13,9 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import instaLogo from "../Images/Logo-Instagram-1.png";
 import { Link } from "react-router-dom";
-const Sidebar = () => {
+const Sidebar = ({ toggleDarkMode, isDarkMode }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [showIconOnly, setShowIconOnly] = useState(false);
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -33,72 +33,128 @@ const Sidebar = () => {
       {/* Links  */}
       <div>
         <ul className="p-4">
-          <li className=" p-3  hover:bg-gray-900 rounded-md my-1">
+          <li
+            className={` p-3  ${
+              isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
+            } rounded-md my-1`}
+          >
             <Link to="/">
               <HomeIcon fontSize="medium" className="mr-4" /> Home
             </Link>
           </li>
-          <li className=" p-3  hover:bg-gray-900 rounded-md my-1">
+          <li
+            className={` p-3  ${
+              isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
+            } rounded-md my-1`}
+          >
             <Link to="/search">
               <SearchIcon fontSize="medium" className="mr-4" />
               Search
             </Link>
           </li>
-          <li className=" p-3  hover:bg-gray-900 rounded-md my-1">
+          <li
+            className={` p-3  ${
+              isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
+            } rounded-md my-1`}
+          >
             <Link to="/explore">
               <ExploreIcon fontSize="medium" className="mr-4" />
               Explore
             </Link>
           </li>
-          <li className=" p-3 hover:bg-gray-900 rounded-md my-1">
+          <li
+            className={` p-3 ${
+              isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
+            } rounded-md my-1`}
+          >
             <Link to="/reels">
               <VideoLibraryIcon fontSize="medium" className="mr-4" />
               Reels
             </Link>
           </li>
-          <li className=" p-3 hover:bg-gray-900 rounded-md my-1">
-            <Link to="/messages" onClick={!setShowIconOnly}>
+          <li
+            className={` p-3 ${
+              isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
+            } rounded-md my-1`}
+          >
+            <Link to="/messages">
               <MessageIcon fontSize="medium" className="mr-4" />
               Messages
             </Link>
           </li>
-          <li className=" p-3 hover:bg-gray-900 rounded-md my-1">
+          <li
+            className={` p-3 ${
+              isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
+            } rounded-md my-1`}
+          >
             <Link to="/notification">
               <FavoriteBorderIcon fontSize="medium" className="mr-4" />
               Notification
             </Link>
           </li>
-          <li className=" p-3 hover:bg-gray-900 rounded-md my-1">
+          <li
+            className={` p-3 ${
+              isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
+            } rounded-md my-1`}
+          >
             <Link to="/create">
               <AddCircleOutlineIcon fontSize="medium" className="mr-4" />
               Create
             </Link>
           </li>
-          <li className=" p-3 hover:bg-gray-900 rounded-md my-1">
+          <li
+            className={` p-3 ${
+              isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
+            } rounded-md my-1`}
+          >
             <Link to="/profile">
               <AccountCircleIcon fontSize="medium" className="mr-4" />
               Profile
             </Link>
           </li>
-          <li className="relative p-3 hover:bg-gray-900 rounded-md my-1">
+          <li
+            className={`relative p-3 ${
+              isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
+            } rounded-md my-1`}
+          >
             <Link to="#" onClick={toggleDropdown}>
               <MenuIcon fontSize="medium" className="mr-4" />
               More
             </Link>
             {/* more Dropdown  */}
             {isDropdownOpen && (
-              <ul className="mt-2 absolute right-0 bottom-full bg-black border border-gray-300 rounded-lg shadow-md">
-                <li className="p-3 hover:bg-gray-900">
-                  <Link to="#">
-                    <LightModeIcon /> Light Mode
-                  </Link>
-                </li>
-                <li className="p-3 hover:bg-gray-900">
-                  <Link to="#">
-                    <DarkModeIcon /> Dark Mode
-                  </Link>
-                </li>
-                <li className="p-3 hover:bg-gray-900">
+              <ul
+                className={`mt-2 absolute right-0 bottom-full ${
+                  isDarkMode ? "bg-black" : "bg-gray-100"
+                } border border-gray-300 rounded-lg shadow-md`}
+              >
+                {isDarkMode ? (
+                  <li
+                    className={`p-3 ${
+                      isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
+                    }`}
+                  >
+                    <button onClick={toggleDarkMode}>
+                      <LightModeIcon /> Light Mode
+                    </button>
+                  </li>
+                ) : (
+                  <li
+                    className={`p-3 ${
+                      isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
+                    }`}
+                  >
+                    <Link onClick={toggleDarkMode}>
+                      <DarkModeIcon /> Dark Mode
+                    </Link>
+                  </li>
+                )}
+
+                <li
+                  className={`p-3 ${
+                    isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
+                  }`}
+                >
                   <Link to="#">
                     <SettingsIcon /> Settings
                   </Link>

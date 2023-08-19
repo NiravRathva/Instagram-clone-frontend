@@ -10,7 +10,7 @@ const Chat = () => {
   return (
     <div className="flex flex-col h-full">
       {/* Header section */}
-      <div className="sticky top-0 z-10 bg-black p-4 flex justify-between items-center border-b">
+      <div className="sticky top-0 z-10 p-4 flex justify-between items-center border-b">
         <div className="flex items-center space-x-2">
           <div className="w-10 h-10 rounded-full overflow-hidden">
             <img
@@ -34,7 +34,7 @@ const Chat = () => {
         {/* Repeat messages */}
       </div>
       {/* Message input section */}
-      <div className="sticky bottom-0 z-10 bg-black py-1 px-4 mx-2  border rounded-full">
+      <div className="sticky bottom-0 z-10 py-1 px-4 mx-2  border rounded-full">
         <div className="flex items-center space-x-2">
           <EmojiEmotionsIcon className="cursor-pointer"/>
           <input
