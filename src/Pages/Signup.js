@@ -4,8 +4,39 @@ import facebookLogo from "../Images/facebook-logo-clipart-hd-10.jpg";
 import playStoreLogo from "../Images/google-play-badge.png";
 import microsoftLogo from "../Images/microsoft.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const Signup = ({isDarkMode }) => {
+const Signup = () => {
+  // State variables for form input fields
+  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  // Hook for navigation
+  const navigate = useNavigate();
+  // Function to handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Sending a POST request to the signup API endpoint
+      await axios.post(
+        "https://white-waiter-xbmxc.ineuron.app:8000/api/v1/auth/signup",
+        {
+          email: email,
+          name: fullName,
+          userName: userName,
+          password: password,
+        }
+      );
+      // Navigating to the login page on successful signup
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex flex-col max-w-[350px] mx-auto justify-center content-center  space-y-4  mt-4 w-full">
       {/* login form section */}
@@ -18,8 +49,11 @@ const Signup = ({isDarkMode }) => {
         {/* login with facebook */}
         <button className="flex items-center space-x-2 mt-4 text-white bg-blue-400 hover:bg-blue-600  w-full  p-2  rounded-xl text-base">
           <span className="bg-none ">
-           
-            <img className="w-7 h-7 p-1 mr-2" src={facebookLogo} alt="Facebook" />
+            <img
+              className="w-7 h-7 p-1 mr-2"
+              src={facebookLogo}
+              alt="Facebook"
+            />
           </span>
           Login with Facebook
         </button>
@@ -35,21 +69,29 @@ const Signup = ({isDarkMode }) => {
             className="w-full p-2 border rounded mb-3 text-sm bg-gray-50"
             type="text"
             placeholder="Mobile number or Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             className="w-full p-2 border rounded mb-3 text-sm bg-gray-50"
             type="text"
             placeholder="Full name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
           />
           <input
             className="w-full p-2 border rounded mb-3 text-sm bg-gray-50"
             type="text"
             placeholder="Username"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           />
           <input
             className="w-full p-2 border rounded mb-3 text-sm bg-gray-50"
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <p className="text-xs text-center my-2">
             People who use our service may have uploaded your contact
@@ -64,6 +106,7 @@ const Signup = ({isDarkMode }) => {
           <button
             className="w-full bg-blue-400 hover:bg-blue-600 text-white p-2  rounded-xl text-base"
             type="submit"
+            onClick={handleSubmit}
           >
             Sign up
           </button>
@@ -74,7 +117,10 @@ const Signup = ({isDarkMode }) => {
       <div className="text-center border-2 border-slate-300 p-4 text-sm">
         Have an account?
         <Link to="/login">
-        <span className="font-bold text-blue-500 cursor-pointer"> Log in </span>
+          <span className="font-bold text-blue-500 cursor-pointer">
+            {" "}
+            Log in{" "}
+          </span>
         </Link>
       </div>
 
