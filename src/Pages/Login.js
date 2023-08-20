@@ -9,20 +9,26 @@ import { useState } from "react";
 import axios from "axios";
 
 const Login = () => {
+  // State variables for form input fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  // Hook for navigation
   const navigate = useNavigate();
+  // Function to handle login  form submission
   const handleLogIn = async (e) => {
     e.preventDefault();
     console.log("cliked");
     try {
+      // Sending a POST request to the signin API endpoint
       const res = await axios.post(
         "https://white-waiter-xbmxc.ineuron.app:8000/api/v1/auth/signin",
         { email, password }
       );
+      // Navigating to the home page on successful login
       navigate("/");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="flex flex-col max-w-[350px] h-screen mx-auto justify-center content-center  space-y-4   w-full">
