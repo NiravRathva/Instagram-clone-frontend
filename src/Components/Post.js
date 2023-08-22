@@ -6,14 +6,15 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const Post = () => {
+const Post = ({post}) => {
+
   return (
     <div className=" rounded-md shadow-md p-8 max-w-md mb-2 mx-auto border-b border-gray-700">
       <div className="flex items-center justify-between mb-2">
         {/* userName and profile */}
         <div className="flex items-center">
           <AccountCircleIcon className="text-blue-500 text-xl" />
-          <h5 className="ml-2 font-semibold">_careless_dude_</h5>
+          <h5 className="ml-2 font-semibold">{post.userName}</h5>
         </div>
         {/* more Icon */}
         <div>
@@ -43,9 +44,15 @@ const Post = () => {
       </div>
 
       <div>
-        <h6 className="my-1">1001 likes</h6>
-        <h6 className="my-1"><span className="font-semibold">_careless_dude_</span> loves to work</h6>
-        <input type="text" placeholder="Add a comment...." className="bg-inherit border-none outline-none" />
+        <h6 className="my-1">{post.likes.length} likes</h6>
+        <h6 className="my-1">
+          <span className="font-semibold">{post.userName}</span> {post.caption}
+        </h6>
+        <input
+          type="text"
+          placeholder="Add a comment...."
+          className="bg-inherit border-none outline-none"
+        />
       </div>
     </div>
   );
