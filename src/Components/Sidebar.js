@@ -25,7 +25,9 @@ const Sidebar = ({ toggleDarkMode, isDarkMode }) => {
       {/* logo  */}
       <div className="mt-5 ">
         <img
-          className="filter invert h-16 w-24 "
+          className={` h-16 w-24 ${
+            isDarkMode ? "filter invert" : ""
+          }`}
           src={instaLogo}
           alt="Instagram"
         />
@@ -67,7 +69,7 @@ const Sidebar = ({ toggleDarkMode, isDarkMode }) => {
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
-            <Link to="/reels">
+            <Link to="/">
               <VideoLibraryIcon fontSize="medium" className="mr-4" />
               Reels
             </Link>
@@ -87,7 +89,7 @@ const Sidebar = ({ toggleDarkMode, isDarkMode }) => {
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
-            <Link to="/notification">
+            <Link to="/">
               <FavoriteBorderIcon fontSize="medium" className="mr-4" />
               Notification
             </Link>

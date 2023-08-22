@@ -1,8 +1,11 @@
 import React from "react";
 import Sidebar from "../Components/Sidebar.js";
 import SettingsIcon from "@mui/icons-material/Settings";
-
+import { useSelector } from "react-redux";
 const Profile = ({ toggleDarkMode, isDarkMode }) => {
+  const { user } = useSelector((state) => state.user);
+
+  console.log(user);
   return (
     <div className="flex">
       {/* Sidebar */}
@@ -30,7 +33,7 @@ const Profile = ({ toggleDarkMode, isDarkMode }) => {
                   src="https://img.freepik.com/free-photo/attractive-enthusiastic-armenian-young-woman-curly-hair-pointing-looking-intrigued-left-show-index-fingers-awesome-blank-space-advertisement-smirking-joyfully-introducing-product-white-background_176420-35016.jpg?size=626&ext=jpg&ga=GA1.2.423171406.1685598216&semt=sph"
                   alt=""
                 />
-                <p>highlights</p>
+                <p>highlight</p>
               </div>
               <div className="text-center mr-8">
                 <img
@@ -46,12 +49,16 @@ const Profile = ({ toggleDarkMode, isDarkMode }) => {
             <div className="flex items-center justify-center mb-4 px-8">
               {/* User details */}
 
-              <h6 className="text-lg font-semibold  mr-3">_careless_dude_</h6>
-              <button className={` ${
+              <h6 className="text-lg font-semibold  mr-3">
+                {user.user.userName}
+              </h6>
+              <button
+                className={` ${
                   isDarkMode
                     ? "bg-gray-700 hover:bg-gray-800 text-white"
                     : "bg-gray-200 hover:bg-gray-300 text-black"
-                } text-sm font-medium mr-3  border outline-none border-none  rounded py-1 px-3 mr-2`}>
+                } text-sm font-medium mr-3  border outline-none border-none  rounded py-1 px-3 mr-2`}
+              >
                 Edit Profile
               </button>
               <button
@@ -69,20 +76,20 @@ const Profile = ({ toggleDarkMode, isDarkMode }) => {
             {/* Followers and following */}
             <div className="flex justif-normal mb-4 px-8">
               <h6 className="text-lg font-semibold mr-8">
-                <span className="mr-2">5</span>posts
+                <span className="mr-2">{user.user.posts.length}</span>posts
               </h6>
               <h6 className="text-lg font-semibold mr-8">
-                <span className="mr-2">555</span>followers
+                <span className="mr-2">{user.user.followers.length}</span>followers
               </h6>
               <h6 className="text-lg font-semibold mr-8">
-                <span className="mr-2">500</span>following
+                <span className="mr-2">{user.user.following.length}</span>following
               </h6>
             </div>
 
             {/* Bio */}
             <div className="px-8">
-              <h5 className="font-semibold mb-1">Nirav Rathwa</h5>
-              <p>adivasi 🏹</p>
+              <h5 className="font-semibold mb-1">{user.user.name}</h5>
+              <p>{user.user.bio} 🏹</p>
               <p>Weird 😜</p>
               <p>sleepy 😴</p>
             </div>

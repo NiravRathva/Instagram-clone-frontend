@@ -7,11 +7,15 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-
+import { useDispatch ,useSelector} from "react-redux";
+import { loginStart, loginFailure, loginSuccess } from "../Store/userSlice";
 const Login = () => {
   // State variables for form input fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { user } = useSelector((state) => state.user);
+  console.log(user)
+  const dispatch = useDispatch();
   // Hook for navigation
   const navigate = useNavigate();
   // Function to handle login  form submission
@@ -20,14 +24,17 @@ const Login = () => {
     console.log("cliked");
     try {
       // Sending a POST request to the signin API endpoint
+      dispatch(loginStart());
       const res = await axios.post(
         "https://white-waiter-xbmxc.ineuron.app:8000/api/v1/auth/signin",
         { email, password }
       );
+      dispatch(loginSuccess(res.data));
       // Navigating to the home page on successful login
       navigate("/");
     } catch (error) {
       console.log(error);
+      dispatch(loginFailure());
     }
   };
   return (
