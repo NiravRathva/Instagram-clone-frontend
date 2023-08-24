@@ -4,7 +4,12 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useState, useEffect } from "react";
-const Profile = ({ toggleDarkMode, isDarkMode }) => {
+const Profile = ({
+  toggleDarkMode,
+  isDarkMode,
+  setOpenCreatePost,
+  openCreatePost,
+}) => {
   const { user } = useSelector((state) => state.user);
 
   const userPost = user.user.posts;
@@ -42,7 +47,12 @@ const Profile = ({ toggleDarkMode, isDarkMode }) => {
     <div className="flex">
       {/* Sidebar */}
       <div className="w-1/6 h-screen  border-r border-gray-700">
-        <Sidebar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+        <Sidebar
+          isDarkMode={isDarkMode}
+          toggleDarkMode={toggleDarkMode}
+          setOpenCreatePost={setOpenCreatePost}
+          openCreatePost={openCreatePost}
+        />
       </div>
 
       {/* Main Content */}

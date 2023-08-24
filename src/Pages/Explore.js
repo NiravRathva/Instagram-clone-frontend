@@ -2,7 +2,12 @@ import Sidebar from "../Components/Sidebar.js";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-const Explore = ({ isDarkMode, toggleDarkMode }) => {
+const Explore = ({
+  isDarkMode,
+  toggleDarkMode,
+  setOpenCreatePost,
+  openCreatePost,
+}) => {
   const { user } = useSelector((state) => state.user);
   const [randomPost, setRandomPost] = useState([]);
 
@@ -27,7 +32,11 @@ const Explore = ({ isDarkMode, toggleDarkMode }) => {
   return (
     <div className="flex">
       <div className="w-1/6 h-screen   border-r border-gray-700">
-        <Sidebar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+        <Sidebar
+          isDarkMode={isDarkMode}
+          toggleDarkMode={toggleDarkMode}
+          openCreatePost={openCreatePost}
+        />
       </div>
 
       {/* Main Content */}

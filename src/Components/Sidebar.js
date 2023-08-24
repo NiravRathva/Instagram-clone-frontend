@@ -13,7 +13,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import instaLogo from "../Images/Logo-Instagram-1.png";
 import { Link } from "react-router-dom";
-const Sidebar = ({ toggleDarkMode, isDarkMode }) => {
+const Sidebar = ({ toggleDarkMode, isDarkMode, setOpenCreatePost }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -25,9 +25,7 @@ const Sidebar = ({ toggleDarkMode, isDarkMode }) => {
       {/* logo  */}
       <div className="mt-5 ">
         <img
-          className={` h-16 w-24 ${
-            isDarkMode ? "filter invert" : ""
-          }`}
+          className={` h-16 w-24 ${isDarkMode ? "filter invert" : ""}`}
           src={instaLogo}
           alt="Instagram"
         />
@@ -99,7 +97,7 @@ const Sidebar = ({ toggleDarkMode, isDarkMode }) => {
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
-            <Link to="/create">
+            <Link onClick={() => setOpenCreatePost(true)}>
               <AddCircleOutlineIcon fontSize="medium" className="mr-4" />
               Create
             </Link>

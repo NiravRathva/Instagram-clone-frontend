@@ -5,7 +5,13 @@ import Suggestion from "../Components/Suggestion";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-const Home = ({ toggleDarkMode, isDarkMode }) => {
+
+const Home = ({
+  toggleDarkMode,
+  isDarkMode,
+  setOpenCreatePost,
+  openCreatePost,
+}) => {
   // Access user object from Redux state
   const { user } = useSelector((state) => state.user);
   const [post, setPost] = useState([]);
@@ -48,12 +54,18 @@ const Home = ({ toggleDarkMode, isDarkMode }) => {
 
     fetchPost();
   }, [user.token]);
-  console.log(post);
+  // console.log(post);
+  console.log(openCreatePost);
   return (
     <div className="flex">
       {/* Sidebar */}
       <div className="w-1/6 h-screen   border-r border-gray-700">
-        <Sidebar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+        <Sidebar
+          isDarkMode={isDarkMode}
+          toggleDarkMode={toggleDarkMode}
+          setOpenCreatePost={setOpenCreatePost}
+          openCreatePost={openCreatePost}
+        />
       </div>
 
       {/* Main Content */}

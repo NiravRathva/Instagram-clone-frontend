@@ -1,41 +1,44 @@
 import Login from "./Pages/Login.js";
 import Signup from "./Pages/Signup.js";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home.js";
 import Profile from "./Pages/Profile.js";
 import Messages from "./Pages/Messages.js";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Explore from "./Pages/Explore.js";
+import CreatePost from "./Components/CreatePost.js";
 
 function App() {
-  // Access user object from Redux state
   const { user } = useSelector((state) => state.user);
-  //  state for dark mode
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [openCreatePost, setOpenCreatePost] = useState(false);
 
   const toggleDarkMode = () => {
     setIsDarkMode((prevMode) => !prevMode);
   };
+
   return (
     <div
-      className={`App  mx-auto bg-black ${
+      className={`App mx-auto bg-black ${
         isDarkMode ? "bg-black text-white" : "bg-white text-black"
       }`}
     >
       <Router>
+        {openCreatePost && <CreatePost setOpenCreatePost={setOpenCreatePost} />}
         <Routes>
           <Route path="/login" element={<Login />} />
+
           <Route
             path="/"
             element={
               user ? (
-                <Home isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+                <Home
+                  isDarkMode={isDarkMode}
+                  toggleDarkMode={toggleDarkMode}
+                  setOpenCreatePost={setOpenCreatePost}
+                  openCreatePost={openCreatePost}
+                />
               ) : (
                 <Login />
               )
@@ -48,6 +51,8 @@ function App() {
                 <Profile
                   isDarkMode={isDarkMode}
                   toggleDarkMode={toggleDarkMode}
+                  setOpenCreatePost={setOpenCreatePost}
+                  openCreatePost={openCreatePost}
                 />
               ) : (
                 <Login />
@@ -61,6 +66,8 @@ function App() {
                 <Explore
                   isDarkMode={isDarkMode}
                   toggleDarkMode={toggleDarkMode}
+                  setOpenCreatePost={setOpenCreatePost}
+                  openCreatePost={openCreatePost}
                 />
               ) : (
                 <Login />
@@ -74,13 +81,14 @@ function App() {
                 <Messages
                   isDarkMode={isDarkMode}
                   toggleDarkMode={toggleDarkMode}
+                  setOpenCreatePost={setOpenCreatePost}
+                  openCreatePost={openCreatePost}
                 />
               ) : (
                 <Login />
               )
             }
           ></Route>
-
           <Route
             path="/signup"
             element={
