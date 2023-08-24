@@ -4,13 +4,15 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
+
 } from "react-router-dom";
 import Home from "./Pages/Home.js";
 import Profile from "./Pages/Profile.js";
 import Messages from "./Pages/Messages.js";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import Explore from "./Pages/Explore.js";
+
 function App() {
   // Access user object from Redux state
   const { user } = useSelector((state) => state.user);
@@ -38,13 +40,25 @@ function App() {
                 <Login />
               )
             }
-            // element={renderProtectedRoute(<Home />)}
           ></Route>
           <Route
             path="/profile"
             element={
               user ? (
                 <Profile
+                  isDarkMode={isDarkMode}
+                  toggleDarkMode={toggleDarkMode}
+                />
+              ) : (
+                <Login />
+              )
+            }
+          ></Route>
+          <Route
+            path="/explore"
+            element={
+              user ? (
+                <Explore
                   isDarkMode={isDarkMode}
                   toggleDarkMode={toggleDarkMode}
                 />

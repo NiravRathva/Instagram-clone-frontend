@@ -140,7 +140,7 @@ const Profile = ({ toggleDarkMode, isDarkMode }) => {
           <div className="grid grid-cols-3 gap-4">
             {userPosts.map((post) => (
               <img
-                key={post._id} // Make sure to provide a unique key for each element when rendering in a loop
+                key={post._id}
                 src="https://img.freepik.com/free-photo/handsome-businessman-suit-glasses-cross-arms-chest-look_176420-21750.jpg?size=626&ext=jpg&ga=GA1.2.423171406.1685598216&semt=sph"
                 alt=""
                 className="w-full h-auto"
