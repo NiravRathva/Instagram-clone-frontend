@@ -6,22 +6,22 @@ import microsoftLogo from "../Images/microsoft.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+
 import axios from "axios";
-import { useDispatch ,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginStart, loginFailure, loginSuccess } from "../Store/userSlice";
 const Login = () => {
   // State variables for form input fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { user } = useSelector((state) => state.user);
-  console.log(user)
+  // console.log(user.data);
   const dispatch = useDispatch();
   // Hook for navigation
   const navigate = useNavigate();
   // Function to handle login  form submission
   const handleLogIn = async (e) => {
     e.preventDefault();
-    console.log("cliked");
     try {
       // Sending a POST request to the signin API endpoint
       dispatch(loginStart());

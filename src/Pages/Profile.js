@@ -2,10 +2,42 @@ import React from "react";
 import Sidebar from "../Components/Sidebar.js";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useState, useEffect } from "react";
 const Profile = ({ toggleDarkMode, isDarkMode }) => {
   const { user } = useSelector((state) => state.user);
 
-  console.log(user);
+  const userPost = user.user.posts;
+  // console.log(userPost)
+  const token = user.token;
+  const [userPosts, setUserPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchUserPosts = async () => {
+      try {
+        // Create an array of promises for fetching user posts
+        const postPromises = userPost.map(async (postId) => {
+          const response = await axios.get(
+            `https://white-waiter-xbmxc.ineuron.app:8000/api/v1/post/${postId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          return response.data; // Return the post data
+        });
+        console.log(postPromises);
+        const fetchedPosts = await Promise.all(postPromises);
+        setUserPosts(fetchedPosts);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchUserPosts();
+  }, [userPost, token]);
+  console.log(userPosts);
   return (
     <div className="flex">
       {/* Sidebar */}
@@ -79,10 +111,12 @@ const Profile = ({ toggleDarkMode, isDarkMode }) => {
                 <span className="mr-2">{user.user.posts.length}</span>posts
               </h6>
               <h6 className="text-lg font-semibold mr-8">
-                <span className="mr-2">{user.user.followers.length}</span>followers
+                <span className="mr-2">{user.user.followers.length}</span>
+                followers
               </h6>
               <h6 className="text-lg font-semibold mr-8">
-                <span className="mr-2">{user.user.following.length}</span>following
+                <span className="mr-2">{user.user.following.length}</span>
+                following
               </h6>
             </div>
 
@@ -104,26 +138,14 @@ const Profile = ({ toggleDarkMode, isDarkMode }) => {
             <h5 className="text-xl font-semibold mx-4 text-xs">TAGGED</h5>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            <img
-              src="https://img.freepik.com/free-photo/handsome-businessman-suit-glasses-cross-arms-chest-look_176420-21750.jpg?size=626&ext=jpg&ga=GA1.2.423171406.1685598216&semt=sph"
-              alt=""
-              className="w-full h-auto"
-            />
-            <img
-              src="https://img.freepik.com/free-photo/young-attractive-handsome-guy-feels-delighted-gladden-amazed_295783-535.jpg?size=626&ext=jpg&ga=GA1.2.423171406.1685598216&semt=sph"
-              alt=""
-              className="w-full h-auto"
-            />
-            <img
-              src="https://img.freepik.com/free-photo/handsome-businessman-suit-glasses-cross-arms-chest-look_176420-21750.jpg?size=626&ext=jpg&ga=GA1.2.423171406.1685598216&semt=sph"
-              alt=""
-              className="w-full h-auto"
-            />
-            <img
-              src="https://img.freepik.com/free-photo/young-attractive-handsome-guy-feels-delighted-gladden-amazed_295783-535.jpg?size=626&ext=jpg&ga=GA1.2.423171406.1685598216&semt=sph"
-              alt=""
-              className="w-full h-auto"
-            />
+            {userPosts.map((post) => (
+              <img
+                key={post._id} // Make sure to provide a unique key for each element when rendering in a loop
+                src="https://img.freepik.com/free-photo/handsome-businessman-suit-glasses-cross-arms-chest-look_176420-21750.jpg?size=626&ext=jpg&ga=GA1.2.423171406.1685598216&semt=sph"
+                alt=""
+                className="w-full h-auto"
+              />
+            ))}
           </div>
         </div>
       </div>

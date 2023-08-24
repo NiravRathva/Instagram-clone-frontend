@@ -13,7 +13,7 @@ const Home = ({ toggleDarkMode, isDarkMode }) => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const token = user.token; // Replace with your actual token
+        const token = user.token; 
         const res = await axios.get(
           "https://white-waiter-xbmxc.ineuron.app:8000/api/v1/post",
           {
