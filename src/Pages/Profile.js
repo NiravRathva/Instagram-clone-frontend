@@ -13,7 +13,7 @@ const Profile = ({
   const { user } = useSelector((state) => state.user);
 
   const userPost = user.user.posts;
-  // console.log(userPost)
+  console.log(user)
   const token = user.token;
   const [userPosts, setUserPosts] = useState([]);
 
@@ -151,8 +151,8 @@ const Profile = ({
             {userPosts.map((post) => (
               <img
                 key={post._id}
-                src="https://img.freepik.com/free-photo/handsome-businessman-suit-glasses-cross-arms-chest-look_176420-21750.jpg?size=626&ext=jpg&ga=GA1.2.423171406.1685598216&semt=sph"
-                alt=""
+                src={post.image}
+                alt="fdfdf"
                 className="w-full h-auto"
               />
             ))}

@@ -54,8 +54,7 @@ const Home = ({
 
     fetchPost();
   }, [user.token]);
-  // console.log(post);
-  console.log(openCreatePost);
+
   return (
     <div className="flex">
       {/* Sidebar */}
