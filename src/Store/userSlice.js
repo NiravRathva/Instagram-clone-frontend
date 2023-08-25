@@ -4,6 +4,8 @@ const initialState = {
   user: null,
   loading: false,
   error: false,
+  followers: [],
+  following: [],
 };
 
 export const userSlice = createSlice({
@@ -25,6 +27,18 @@ export const userSlice = createSlice({
       state.user = null;
       state.loading = false;
       state.error = false;
+    },
+    follow: (state, action) => {
+      const followedUserId = action.payload;
+      if (!state.user.following.includes(followedUserId)) {
+        state.user.following.push(action.payload);
+      }
+      const followedUser = state.user.find(
+        (user) => user._id === followedUserId
+      );
+      if (followedUser) {
+        state.user.followers.push(state.user._id);
+      }
     },
   },
 });

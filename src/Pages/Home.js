@@ -5,7 +5,6 @@ import Suggestion from "../Components/Suggestion";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-
 const Home = ({
   toggleDarkMode,
   isDarkMode,
@@ -28,7 +27,7 @@ const Home = ({
             },
           }
         );
-        const postData = res.data;
+        const postData = res.data;        
         // Fetch user data for each post and add userName to each post object
         const updatedPosts = await Promise.all(
           postData.map(async (post) => {
@@ -44,7 +43,6 @@ const Home = ({
             return { ...post, userName }; // Add userName to the post object
           })
         );
-
         setPost(updatedPosts);
         // console.log(updatedPosts);
       } catch (error) {
