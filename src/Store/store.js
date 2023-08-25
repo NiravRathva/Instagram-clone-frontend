@@ -11,12 +11,16 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import userReducer from "./userSlice";
+import postReducer from "./postSlice";
 
 const persistConfig = {
   key: "root",
   storage,
 };
-const rootReducer = combineReducers({ user: userReducer });
+const rootReducer = combineReducers(
+  { user: userReducer },
+  { myPost: postReducer }
+);
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
