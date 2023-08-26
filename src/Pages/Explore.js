@@ -2,6 +2,8 @@ import Sidebar from "../Components/Sidebar.js";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addPosts } from "../Store/postSlice.js";
 const Explore = ({
   isDarkMode,
   toggleDarkMode,
@@ -9,8 +11,11 @@ const Explore = ({
   openCreatePost,
 }) => {
   const { user } = useSelector((state) => state.user);
+  const { myPost } = useSelector((state) => state.myPost);
+  console.log(myPost)
   const [randomPost, setRandomPost] = useState([]);
 
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchPost = async () => {
       const token = user.token;
@@ -24,6 +29,7 @@ const Explore = ({
           }
         );
         setRandomPost(res.data);
+        dispatch(addPosts(res.data));
       } catch (error) {}
     };
     fetchPost();
@@ -45,7 +51,7 @@ const Explore = ({
           {randomPost.map((post) => (
             <img
               key={post._id}
-              src="https://img.freepik.com/free-photo/handsome-businessman-suit-glasses-cross-arms-chest-look_176420-21750.jpg?size=626&ext=jpg&ga=GA1.2.423171406.1685598216&semt=sph"
+              src={post.image}
               alt=""
               className="w-full h-auto"
             />

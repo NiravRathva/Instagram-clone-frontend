@@ -40,8 +40,11 @@ export const userSlice = createSlice({
         state.user.followers.push(state.user._id);
       }
     },
+    addPostIdToUser: (state, action) => {
+      state.user.user.posts.push(action.payload);
+    },
   },
 });
-export const { loginStart, loginSuccess, loginFailure, logout } =
+export const { loginStart, loginSuccess, loginFailure, logout ,follow,addPostIdToUser} =
   userSlice.actions;
 export default userSlice.reducer;

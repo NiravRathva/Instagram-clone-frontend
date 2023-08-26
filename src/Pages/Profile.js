@@ -13,7 +13,7 @@ const Profile = ({
   const { user } = useSelector((state) => state.user);
 
   const userPost = user.user.posts;
-  console.log(user)
+  console.log(user);
   const token = user.token;
   const [userPosts, setUserPosts] = useState([]);
 
@@ -32,7 +32,7 @@ const Profile = ({
           );
           return response.data; // Return the post data
         });
-        console.log(postPromises);
+
         const fetchedPosts = await Promise.all(postPromises);
         setUserPosts(fetchedPosts);
       } catch (error) {
@@ -150,8 +150,8 @@ const Profile = ({
           <div className="grid grid-cols-3 gap-4">
             {userPosts.map((post) => (
               <img
-                key={post._id}
-                src={post.image}
+                key={post.doc._id}
+                src={post.doc.image}
                 alt="fdfdf"
                 className="w-full h-auto"
               />
