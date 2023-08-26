@@ -13,6 +13,7 @@ const Explore = ({
   const { user } = useSelector((state) => state.user);
   const { myPost } = useSelector((state) => state.myPost);
   console.log(myPost)
+
   const [randomPost, setRandomPost] = useState([]);
 
   const dispatch = useDispatch();

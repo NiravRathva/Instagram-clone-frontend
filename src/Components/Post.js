@@ -24,7 +24,7 @@ const Post = ({post}) => {
       {/* photo or Video */}
       <div>
         <img
-          src="https://assets.architecturaldigest.in/photos/64cc0230b462697ebd0b5f2b/master/w_1600,c_limit/DSC00560-2.jpg"
+          src={post.image}
           alt=""
           className="w-96 rounded-lg shadow-md"
         />

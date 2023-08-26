@@ -14,44 +14,52 @@ const Home = ({
   // Access user object from Redux state
   const { user } = useSelector((state) => state.user);
   const [post, setPost] = useState([]);
-
+  const userFollowing = user.user.following.length;
+  const myrandomPost = useSelector((state) => state.myPost.posts);
+  console.log(myrandomPost)
   useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const token = user.token;
-        const res = await axios.get(
-          "https://white-waiter-xbmxc.ineuron.app:8000/api/v1/post",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const postData = res.data;        
-        // Fetch user data for each post and add userName to each post object
-        const updatedPosts = await Promise.all(
-          postData.map(async (post) => {
-            const userId = post.user; // Assuming user ID is stored here
-            const userResponse = await axios.get(
-              `https://white-waiter-xbmxc.ineuron.app:8000/api/v1/user/${userId}`
-            ); // Fetch user document
-            // Extract username from the user document
-            // console.log(userResponse)
-            const userName = userResponse.data.data.userName;
-            // Replace "username" with the actual field name
-            // console.log(userName);
-            return { ...post, userName }; // Add userName to the post object
-          })
-        );
-        setPost(updatedPosts);
-        // console.log(updatedPosts);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    if (userFollowing > 10) {
+      const fetchPost = async () => {
+        try {
+          const token = user.token;
+          console.log("fetchpost")
+          const res = await axios.get(
+            "https://white-waiter-xbmxc.ineuron.app:8000/api/v1/post",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const postData = res.data;
+          // Fetch user data for each post and add userName to each post object
+          const updatedPosts = await Promise.all(
+            postData.map(async (post) => {
+              const userId = post.user; // Assuming user ID is stored here
+              const userResponse = await axios.get(
+                `https://white-waiter-xbmxc.ineuron.app:8000/api/v1/user/${userId}`
+              ); // Fetch user document
+              // Extract username from the user document
+              // console.log(userResponse)
+              const userName = userResponse.data.data.userName;
+              // Replace "username" with the actual field name
+              // console.log(userName);
+              return { ...post, userName }; // Add userName to the post object
+            })
+          );
+          setPost(updatedPosts);
+          console.log(updatedPosts);
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
-    fetchPost();
-  }, [user.token]);
+      fetchPost();
+    } else {
+      // Use the posts from Redux store
+      setPost(myrandomPost);
+    }
+  }, [user.token,userFollowing, myrandomPost]);
 
   return (
     <div className="flex">
