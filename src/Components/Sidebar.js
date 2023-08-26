@@ -12,14 +12,17 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import SettingsIcon from "@mui/icons-material/Settings";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import instaLogo from "../Images/Logo-Instagram-1.png";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
+import { logout } from "../Store/userSlice";
+import { useDispatch } from "react-redux";
 const Sidebar = ({ toggleDarkMode, isDarkMode, setOpenCreatePost }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
+  const dispatch = useDispatch();
   return (
     <div className="  flex flex-col justify-center items-center">
       {/* logo  */}
@@ -157,6 +160,15 @@ const Sidebar = ({ toggleDarkMode, isDarkMode, setOpenCreatePost }) => {
                 >
                   <Link to="#">
                     <SettingsIcon /> Settings
+                  </Link>
+                </li>
+                <li
+                  className={`p-3 ${
+                    isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
+                  }`}
+                >
+                  <Link onClick={()=>dispatch(logout())}>
+                    <LogoutIcon /> Log out
                   </Link>
                 </li>
               </ul>
