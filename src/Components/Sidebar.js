@@ -50,7 +50,7 @@ const Sidebar = ({ toggleDarkMode, isDarkMode, setOpenCreatePost }) => {
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
-            <Link to="/search">
+            <Link >
               <SearchIcon fontSize="medium" className="mr-4" />
               Search
             </Link>
@@ -70,7 +70,7 @@ const Sidebar = ({ toggleDarkMode, isDarkMode, setOpenCreatePost }) => {
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
-            <Link to="/">
+            <Link >
               <VideoLibraryIcon fontSize="medium" className="mr-4" />
               Reels
             </Link>
@@ -90,7 +90,7 @@ const Sidebar = ({ toggleDarkMode, isDarkMode, setOpenCreatePost }) => {
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
-            <Link to="/">
+            <Link>
               <FavoriteBorderIcon fontSize="medium" className="mr-4" />
               Notification
             </Link>
@@ -120,7 +120,7 @@ const Sidebar = ({ toggleDarkMode, isDarkMode, setOpenCreatePost }) => {
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
-            <Link to="#" onClick={toggleDropdown}>
+            <Link  onClick={toggleDropdown}>
               <MenuIcon fontSize="medium" className="mr-4" />
               More
             </Link>

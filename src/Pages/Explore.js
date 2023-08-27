@@ -28,7 +28,7 @@ const Explore = ({
               Authorization: `Bearer ${token}`,
             },
           }
-        );
+        );       
         setRandomPost(res.data);
         dispatch(addPosts(res.data));
       } catch (error) {}

@@ -16,13 +16,13 @@ const Home = ({
   const [post, setPost] = useState([]);
   const userFollowing = user.user.following.length;
   const myrandomPost = useSelector((state) => state.myPost.posts);
-  console.log(myrandomPost)
+  console.log(myrandomPost);
   useEffect(() => {
     if (userFollowing > 10) {
       const fetchPost = async () => {
         try {
           const token = user.token;
-          console.log("fetchpost")
+          console.log("fetchpost");
           const res = await axios.get(
             "https://white-waiter-xbmxc.ineuron.app:8000/api/v1/post",
             {
@@ -59,7 +59,7 @@ const Home = ({
       // Use the posts from Redux store
       setPost(myrandomPost);
     }
-  }, [user.token,userFollowing, myrandomPost]);
+  }, [user.token, userFollowing, myrandomPost]);
 
   return (
     <div className="flex">
