@@ -29,13 +29,34 @@ const Explore = ({
             },
           }
         );       
-        setRandomPost(res.data);
-        dispatch(addPosts(res.data));
-      } catch (error) {}
+        const postData = res.data;
+        console.log(postData)
+        // Fetch user data for each post and add userName to each post object
+        const updatedPosts = await Promise.all(
+          postData.map(async (post) => {
+            const userId = post.user; // Assuming user ID is stored here
+            console.log(userId)
+            const userResponse = await axios.get(
+              `https://white-waiter-xbmxc.ineuron.app:8000/api/v1/user/${userId}`
+            ); // Fetch user document
+            // Extract username from the user document
+            // console.log(userResponse)
+            const userName = userResponse.data.doc.userName;
+            // Replace "username" with the actual field name
+            console.log(userName);
+            return { ...post, userName }; // Add userName to the post object
+          })
+        );
+        console.log(updatedPosts)
+        setRandomPost(updatedPosts);
+        dispatch(addPosts(updatedPosts));
+      } catch (error) {
+        console.log(error)
+      }
     };
     fetchPost();
-  }, [user.token]);
-  console.log(randomPost);
+  }, [user.token,dispatch]);
+  // console.log(randomPost);
   return (
     <div className="flex">
       <div className="w-1/6 h-screen   border-r border-gray-700">

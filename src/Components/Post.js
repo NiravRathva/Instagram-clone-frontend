@@ -31,7 +31,7 @@ const Post = ({ post }) => {
         {/* userName and profile */}
         <div className="flex items-center">
           <AccountCircleIcon className="text-blue-500 text-xl" />
-          <h5 className="ml-2 font-semibold">{user.user.userName}</h5>
+          <h5 className="ml-2 font-semibold">{post.userName}</h5>
         </div>
         {/* more Icon */}
         <div>
