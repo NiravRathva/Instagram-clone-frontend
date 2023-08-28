@@ -106,10 +106,9 @@ const Signup = () => {
           <button
             className="w-full bg-blue-400 hover:bg-blue-600 text-white p-2  rounded-xl text-base"
             type="submit"
-            onClick={handleSubmit}
           >
             Sign up
-          </button>
+          </button>  
         </form>
       </div>
 

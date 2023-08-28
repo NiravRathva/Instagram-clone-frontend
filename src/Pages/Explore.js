@@ -12,7 +12,7 @@ const Explore = ({
 }) => {
   const { user } = useSelector((state) => state.user);
   const { myPost } = useSelector((state) => state.myPost);
-  console.log(myPost)
+  console.log(myPost);
 
   const [randomPost, setRandomPost] = useState([]);
 
@@ -28,34 +28,36 @@ const Explore = ({
               Authorization: `Bearer ${token}`,
             },
           }
-        );       
+        );
         const postData = res.data;
-        console.log(postData)
+        console.log(postData);
         // Fetch user data for each post and add userName to each post object
         const updatedPosts = await Promise.all(
           postData.map(async (post) => {
             const userId = post.user; // Assuming user ID is stored here
-            console.log(userId)
+            console.log(userId);
             const userResponse = await axios.get(
               `https://white-waiter-xbmxc.ineuron.app:8000/api/v1/user/${userId}`
             ); // Fetch user document
             // Extract username from the user document
-            // console.log(userResponse)
+            console.log(userResponse);
             const userName = userResponse.data.doc.userName;
+            const followers = userResponse.data.doc.followers;
+            const following = userResponse.data.doc.following;
             // Replace "username" with the actual field name
             console.log(userName);
-            return { ...post, userName }; // Add userName to the post object
+            return { ...post, userName, followers, following }; // Add userName to the post object
           })
         );
-        console.log(updatedPosts)
+        console.log(updatedPosts);
         setRandomPost(updatedPosts);
         dispatch(addPosts(updatedPosts));
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     };
     fetchPost();
-  }, [user.token,dispatch]);
+  }, [user.token, dispatch]);
   // console.log(randomPost);
   return (
     <div className="flex">

@@ -76,7 +76,7 @@ const Home = ({
       {/* Main Content */}
       <div className="flex  flex-1 ml-1/6 w-5/6  p-4  overflow-y-auto">
         {/* posts */}
-        <div className="w-2/3  ">
+        <div className="w-2/3">
           {post.map((singlePost) => (
             <Post key={singlePost._id} post={singlePost} />
           ))}

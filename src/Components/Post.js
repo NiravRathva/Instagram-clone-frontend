@@ -9,14 +9,17 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { likePost, disLikePost } from "../Store/postSlice";
 import { red } from "@mui/material/colors";
+import { followUser } from "../Store/userSlice";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-
+import axios from "axios";
 const Post = ({ post }) => {
   const { user } = useSelector((state) => state.user);
   const userId = user.user._id;
   const dispatch = useDispatch();
   const isPostLiked = post.likes.includes(userId);
+  const isUserFollowing = user.user.following.includes(post.user);
 
+  const postOwener = post.user;
   // handle like dislike of post
   const handleLike = () => {
     if (!isPostLiked) {
@@ -25,8 +28,43 @@ const Post = ({ post }) => {
       dispatch(disLikePost({ postId: post._id, userId }));
     }
   };
+
+  const handleFollow = async () => {
+    try {
+      const updatedFollowing = [...post.following, postOwener];
+      const updatedFollowers = [...post.followers, userId];
+
+      const updatedUserData = {
+        following: updatedFollowing,
+      };
+      const updatedPostOwnerData = {
+        followers: updatedFollowers,
+      };
+      if (postOwener === userId) {
+        console.log("user and postowener are same ");
+        return;
+      }
+      const resUser = await axios.patch(
+        `https://white-waiter-xbmxc.ineuron.app:8000/api/v1/user/${userId}`,
+        updatedUserData
+      );
+      const resPost = await axios.patch(
+        `https://white-waiter-xbmxc.ineuron.app:8000/api/v1/user/${postOwener}`,
+        updatedPostOwnerData
+      );
+      dispatch(
+        followUser({
+          userId,
+          postOwener,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className=" rounded-md shadow-md p-8 max-w-md mb-2 mx-auto border-b border-gray-700">
+    <div className=" rounded-md shadow-lg p-8 max-w-md mb-4 mx-auto border-b bg-gray-100 border-gray-800">
       <div className="flex items-center justify-between mb-2">
         {/* userName and profile */}
         <div className="flex items-center">
@@ -35,9 +73,12 @@ const Post = ({ post }) => {
         </div>
         {/* more Icon */}
         <div>
-          <button className="bg-blue-500 text-white px-3 py-1 rounded-md font-semibold">
+         {!isUserFollowing?( <button
+            className="bg-blue-500 text-white px-3 py-1 rounded-md font-semibold"
+            onClick={handleFollow}
+          >
             Follow
-          </button>
+          </button>):""}
           <MoreHorizIcon className="text-gray-500 ml-2" />
         </div>
       </div>

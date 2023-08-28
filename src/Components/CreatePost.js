@@ -77,7 +77,7 @@ const CreatePost = ({ setOpenCreatePost }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 overflow-hidden">
       <div className="bg-white p-8 rounded-lg shadow-lg">
         <h1 className="text-xl font-semibold mb-4">Upload a Post</h1>
         {progress > 0 ? (
@@ -100,7 +100,7 @@ const CreatePost = ({ setOpenCreatePost }) => {
           className="bg-blue-500 text-white px-4 py-2 rounded-lg mr-2"
           onClick={upload}
         >
-          Upload
+          Share
         </button>
         <button
           className="bg-red-500 text-white px-4 py-2 rounded-lg"

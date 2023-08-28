@@ -28,23 +28,26 @@ export const userSlice = createSlice({
       state.loading = false;
       state.error = false;
     },
-    follow: (state, action) => {
-      const followedUserId = action.payload;
-      if (!state.user.following.includes(followedUserId)) {
-        state.user.following.push(action.payload);
-      }
-      const followedUser = state.user.find(
-        (user) => user._id === followedUserId
-      );
-      if (followedUser) {
-        state.user.followers.push(state.user._id);
+    followUser: (state, action) => {
+      const { userId, postOwener } = action.payload;
+
+      const followedUser = state.user.user.following.includes(postOwener);
+      if (!followedUser) {
+        state.user.user.following.push(postOwener);
       }
     },
+
     addPostIdToUser: (state, action) => {
       state.user.user.posts.push(action.payload);
     },
   },
 });
-export const { loginStart, loginSuccess, loginFailure, logout ,follow,addPostIdToUser} =
-  userSlice.actions;
+export const {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+  logout,
+  followUser,
+  addPostIdToUser,
+} = userSlice.actions;
 export default userSlice.reducer;

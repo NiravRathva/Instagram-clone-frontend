@@ -79,7 +79,7 @@ const Profile = ({
               </div>
               <div className="text-center mr-8">
                 <img
-                  className="w-20 h-20 rounded-full m-2 filter invert"
+                  className={`w-20 h-20 rounded-full m-2 ${isDarkMode?"filter invert":""}`}
                   src="https://img.icons8.com/?size=512&id=1501&format=png"
                   alt=""
                 />
