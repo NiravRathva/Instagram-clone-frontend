@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { isEmailValid } from "../Util/validEmail";
 
 const Signup = () => {
   // State variables for form input fields
@@ -27,6 +28,10 @@ const Signup = () => {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isEmailValid(email)) {
+      setErr("Invalid email format");
+      return;
+    }
     try {
       // Sending a POST request to the signup API endpoint
       await axios.post(
@@ -106,7 +111,7 @@ const Signup = () => {
             required
             minLength="8"
           />
-          
+
           {err && err.response && err.response.data.error.code === 11000 && (
             <div className="text-red-500 mt-2">
               Username and email should be unique.

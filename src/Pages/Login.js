@@ -6,7 +6,7 @@ import microsoftLogo from "../Images/microsoft.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
+import { isEmailValid } from "../Util/validEmail";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { loginStart, loginFailure, loginSuccess } from "../Store/userSlice";
@@ -14,7 +14,7 @@ const Login = () => {
   // State variables for form input fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [err, setErr] = useState("");
   // console.log(user.data);
   const dispatch = useDispatch();
   // Hook for navigation
@@ -23,6 +23,10 @@ const Login = () => {
   const handleLogIn = async (e) => {
     dispatch(loginStart());
     e.preventDefault();
+    if (!isEmailValid(email)) {
+      setErr("Invalid email format");
+      return;
+    }
     try {
       // Sending a POST request to the signin API endpoint
       const res = await axios.post(
@@ -44,23 +48,25 @@ const Login = () => {
         {/* logo */}
         <img className="w-44 h-24 mb-2" src={instaLogo} alt="" />
         {/* form */}
-        <form className="w-full mx-12">
+        <form className="w-full mx-12" onSubmit={handleLogIn}>
           <input
             className="w-full p-2 border rounded mb-3 text-xs bg-gray-50"
             type="text"
-            placeholder="Mobile number, Username, or Email"
+            placeholder="Enter your  Email"
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <input
             className="w-full p-2 border rounded mb-3 text-xs bg-gray-50"
             type="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength="8"
           />
           <button
             className="w-full bg-blue-400 hover:bg-blue-600 text-white p-2  rounded-xl text-base"
             type="submit"
-            onClick={handleLogIn}
           >
             Log in
           </button>
