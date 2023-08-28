@@ -4,7 +4,7 @@ import facebookLogo from "../Images/facebook-logo-clipart-hd-10.jpg";
 import playStoreLogo from "../Images/google-play-badge.png";
 import microsoftLogo from "../Images/microsoft.png";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -14,8 +14,16 @@ const Signup = () => {
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [err, setErr] = useState("");
   // Hook for navigation
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (err && err.response && err.response.data.error.code === 11000) {
+      // Display error message for duplicate username or email
+      console.log("userName and email should be unique");
+    }
+  }, [err]);
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,13 +72,14 @@ const Signup = () => {
           <span className="border-t border-gray-400 w-28"></span>
         </div>
         {/* form */}
-        <form className="w-full mx-12">
+        <form className="w-full mx-12" onSubmit={handleSubmit}>
           <input
             className="w-full p-2 border rounded mb-3 text-sm bg-gray-50"
             type="text"
             placeholder="Mobile number or Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <input
             className="w-full p-2 border rounded mb-3 text-sm bg-gray-50"
@@ -78,6 +87,7 @@ const Signup = () => {
             placeholder="Full name"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
+            required
           />
           <input
             className="w-full p-2 border rounded mb-3 text-sm bg-gray-50"
@@ -85,6 +95,7 @@ const Signup = () => {
             placeholder="Username"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
+            required
           />
           <input
             className="w-full p-2 border rounded mb-3 text-sm bg-gray-50"
@@ -92,7 +103,15 @@ const Signup = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength="8"
           />
+          
+          {err && err.response && err.response.data.error.code === 11000 && (
+            <div className="text-red-500 mt-2">
+              Username and email should be unique.
+            </div>
+          )}
           <p className="text-xs text-center my-2">
             People who use our service may have uploaded your contact
             information to Instagram.{" "}
@@ -108,7 +127,7 @@ const Signup = () => {
             type="submit"
           >
             Sign up
-          </button>  
+          </button>
         </form>
       </div>
 
