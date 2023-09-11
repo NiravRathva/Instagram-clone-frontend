@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import initializeFirebaseApp from "../firebaseConfig.js";
 import { useDispatch } from "react-redux";
 import { addPostIdToUser } from "../Store/userSlice.js";
-
+import config from "../config.js"
 const CreatePost = ({ setOpenCreatePost }) => {
   const [postFile, setPostFile] = useState(null);
   const [caption, setCaption] = useState("");
@@ -22,7 +22,7 @@ const CreatePost = ({ setOpenCreatePost }) => {
   const { user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
-  
+  const api=config.apiUrl
   // Initialize Firebase App using the API key from Redux store
   const app = initializeFirebaseApp(user.firebaseApiKey);
   // Initialize Firebase Storage
@@ -59,7 +59,7 @@ const CreatePost = ({ setOpenCreatePost }) => {
   const upload = async () => {
     try {
       const res = await axios.post(
-        "https://white-waiter-xbmxc.ineuron.app:8000/api/v1/post",
+        `${api}/post`,
         { caption, image: downloadURL },
         {
           headers: {

@@ -4,6 +4,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import config from "../config.js"
 const Profile = ({
   toggleDarkMode,
   isDarkMode,
@@ -11,7 +12,7 @@ const Profile = ({
   openCreatePost,
 }) => {
   const { user } = useSelector((state) => state.user);
-
+  const api=config.apiUrl
   const userPost = user.user.posts;
   console.log(user);
   const token = user.token;
@@ -23,7 +24,7 @@ const Profile = ({
         // Create an array of promises for fetching user posts
         const postPromises = userPost.map(async (postId) => {
           const response = await axios.get(
-            `https://white-waiter-xbmxc.ineuron.app:8000/api/v1/post/${postId}`,
+            `${api}/post/${postId}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,

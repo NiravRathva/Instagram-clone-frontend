@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { isEmailValid } from "../Util/validEmail";
+import config from "../config.js";
+import { useSelector } from "react-redux";
 
 const Signup = () => {
   // State variables for form input fields
@@ -16,9 +18,14 @@ const Signup = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
+  const [loading ,setLoading]=useState(false)
   // Hook for navigation
   const navigate = useNavigate();
 
+  
+
+  const user = useSelector((state) => state.user);
+  const api = config.apiUrl;
   useEffect(() => {
     if (err && err.response && err.response.data.error.code === 11000) {
       // Display error message for duplicate username or email
@@ -33,19 +40,27 @@ const Signup = () => {
       return;
     }
     try {
+      setLoading(true)
       // Sending a POST request to the signup API endpoint
-      await axios.post(
-        "https://white-waiter-xbmxc.ineuron.app:8000/api/v1/auth/signup",
-        {
-          email: email,
-          name: fullName,
-          userName: userName,
-          password: password,
-        }
-      );
+      const res = await axios.post(`${api}/auth/signup`, {
+        email: email,
+        name: fullName,
+        userName: userName,
+        password: password,
+      });
+      console.log(res);
       // Navigating to the login page on successful signup
+      console.log(loading)
+
+      setLoading(false)
+      console.log(loading)
       navigate("/login");
+
+
     } catch (error) {
+      setLoading(false)
+      setErr("something went wrong")
+      
       console.log(error);
     }
   };
@@ -116,6 +131,14 @@ const Signup = () => {
             <div className="text-red-500 mt-2">
               Username and email should be unique.
             </div>
+          )}
+          {err !== "" &&<h4 className="text-red-400">{err}</h4>}
+          {loading ? (
+            <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+              <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
+            </div>
+          ) : (
+            ""
           )}
           <p className="text-xs text-center my-2">
             People who use our service may have uploaded your contact

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addPosts } from "../Store/postSlice.js";
+import config from "../config.js"
 const Explore = ({
   isDarkMode,
   toggleDarkMode,
@@ -12,17 +13,18 @@ const Explore = ({
 }) => {
   const { user } = useSelector((state) => state.user);
   const { myPost } = useSelector((state) => state.myPost);
-  console.log(myPost);
+  const userPostArray=user.user.posts
+  console.log(userPostArray);
 
   const [randomPost, setRandomPost] = useState([]);
-
+const api=config.apiUrl
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchPost = async () => {
       const token = user.token;
       try {
         const res = await axios.get(
-          "https://white-waiter-xbmxc.ineuron.app:8000/api/v1/post/random",
+          `${api}/post/random`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -37,7 +39,7 @@ const Explore = ({
             const userId = post.user; // Assuming user ID is stored here
             console.log(userId);
             const userResponse = await axios.get(
-              `https://white-waiter-xbmxc.ineuron.app:8000/api/v1/user/${userId}`
+              `${api}/user/${userId}`
             ); // Fetch user document
             // Extract username from the user document
             console.log(userResponse);
@@ -57,7 +59,7 @@ const Explore = ({
       }
     };
     fetchPost();
-  }, [user.token, dispatch]);
+  }, [user.token, dispatch,userPostArray,api]);
   // console.log(randomPost);
   return (
     <div className="flex">

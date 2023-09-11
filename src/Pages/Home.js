@@ -5,6 +5,7 @@ import Suggestion from "../Components/Suggestion";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import config from "../config.js"
 const Home = ({
   toggleDarkMode,
   isDarkMode,
@@ -17,6 +18,7 @@ const Home = ({
   const userFollowing = user.user.following.length;
   const myrandomPost = useSelector((state) => state.myPost.posts);
   console.log(myrandomPost);
+  const api=config.apiUrl
   useEffect(() => {
     if (userFollowing > 10) {
       const fetchPost = async () => {
@@ -24,7 +26,7 @@ const Home = ({
           const token = user.token;
           console.log("fetchpost");
           const res = await axios.get(
-            "https://white-waiter-xbmxc.ineuron.app:8000/api/v1/post",
+            `${api}/post`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -37,7 +39,7 @@ const Home = ({
             postData.map(async (post) => {
               const userId = post.user; // Assuming user ID is stored here
               const userResponse = await axios.get(
-                `https://white-waiter-xbmxc.ineuron.app:8000/api/v1/user/${userId}`
+                `${api}/user/${userId}`
               ); // Fetch user document
               // Extract username from the user document
               // console.log(userResponse)

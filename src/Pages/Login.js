@@ -10,6 +10,7 @@ import { isEmailValid } from "../Util/validEmail";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { loginStart, loginFailure, loginSuccess } from "../Store/userSlice";
+import config from "../config.js";
 const Login = () => {
   // State variables for form input fields
   const [email, setEmail] = useState("");
@@ -19,6 +20,8 @@ const Login = () => {
   const dispatch = useDispatch();
   // Hook for navigation
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const api = config.apiUrl;
   // Function to handle login  form submission
   const handleLogIn = async (e) => {
     dispatch(loginStart());
@@ -29,16 +32,16 @@ const Login = () => {
     }
     try {
       // Sending a POST request to the signin API endpoint
-      const res = await axios.post(
-        "https://white-waiter-xbmxc.ineuron.app:8000/api/v1/auth/signin",
-        { email, password }
-      );
+      const res = await axios.post(`${api}/auth/signin`, { email, password });
       dispatch(loginSuccess(res.data));
+      console.log(res.data);
       // Navigating to the home page on successful login
       navigate("/");
     } catch (error) {
       console.log(error);
       dispatch(loginFailure());
+      setErr("something went wrong");
+      console.log(err);
     }
   };
   return (
@@ -70,6 +73,7 @@ const Login = () => {
           >
             Log in
           </button>
+          {err !== "" && <h4 className="text-red-300"> something went wrong</h4>}
         </form>
         <div className="flex items-center justify-center w-full mt-4">
           <span className="border-t border-gray-400 w-28"></span>
@@ -85,6 +89,7 @@ const Login = () => {
           <p className="text-blue-500 text-xs my-4">Forgot password</p>
         </div>
       </div>
+      
       {/* don't have an account section  */}
       <div className="text-center border-2 border-slate-300 p-4 text-sm">
         Don't have an account?{" "}
@@ -98,6 +103,15 @@ const Login = () => {
         {/* get the app section  */}
         <p className="my-2 text-sm">Get the app</p>
 
+        {/* showing loader  */}
+        {user.loading ? (
+           <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+           <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
+         </div>
+        ) : (
+        ""
+        )}
+       
         <div className="flex justify-center space-x-2 content-center">
           <img
             className="max-w-full h-16"

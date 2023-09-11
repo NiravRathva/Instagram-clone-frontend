@@ -12,6 +12,7 @@ import { red } from "@mui/material/colors";
 import { followUser } from "../Store/userSlice";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from "axios";
+import config from "../config.js"
 const Post = ({ post }) => {
   const { user } = useSelector((state) => state.user);
   const userId = user.user._id;
@@ -19,6 +20,7 @@ const Post = ({ post }) => {
   const isPostLiked = post.likes.includes(userId);
   const isUserFollowing = user.user.following.includes(post.user);
 
+  const api=config.apiUrl
   const postOwener = post.user;
   // handle like dislike of post
   const handleLike = () => {
@@ -45,11 +47,11 @@ const Post = ({ post }) => {
         return;
       }
       const resUser = await axios.patch(
-        `https://white-waiter-xbmxc.ineuron.app:8000/api/v1/user/${userId}`,
+        `${api}/user/${userId}`,
         updatedUserData
       );
       const resPost = await axios.patch(
-        `https://white-waiter-xbmxc.ineuron.app:8000/api/v1/user/${postOwener}`,
+        `${api}/user/${postOwener}`,
         updatedPostOwnerData
       );
       dispatch(
@@ -64,7 +66,7 @@ const Post = ({ post }) => {
   };
 
   return (
-    <div className=" rounded-md shadow-lg p-8 max-w-md mb-4 mx-auto border-b bg-gray-100 border-gray-800">
+    <div className=" rounded-md shadow-lg p-8 max-w-md mb-4 mx-auto border-b  border-gray-800">
       <div className="flex items-center justify-between mb-2">
         {/* userName and profile */}
         <div className="flex items-center">
@@ -73,12 +75,12 @@ const Post = ({ post }) => {
         </div>
         {/* more Icon */}
         <div>
-         {!isUserFollowing?( <button
+         {!isUserFollowing && !(postOwener === userId)?( <button
             className="bg-blue-500 text-white px-3 py-1 rounded-md font-semibold"
             onClick={handleFollow}
           >
             Follow
-          </button>):""}
+          </button>):"following"}
           <MoreHorizIcon className="text-gray-500 ml-2" />
         </div>
       </div>
