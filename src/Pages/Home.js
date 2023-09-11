@@ -15,6 +15,7 @@ const Home = ({
   // Access user object from Redux state
   const { user } = useSelector((state) => state.user);
   const [post, setPost] = useState([]);
+  const [loading, setLoading] = useState(false)
   const userFollowing = user.user.following.length;
   const myrandomPost = useSelector((state) => state.myPost.posts);
   const api = config.apiUrl;
@@ -22,6 +23,7 @@ const Home = ({
     if (userFollowing > 10) {
       const fetchPost = async () => {
         try {
+          setLoading(true)
           const token = user.token;
           const res = await axios.get(`${api}/post`, {
             headers: {
@@ -41,6 +43,7 @@ const Home = ({
             })
           );
           setPost(updatedPosts);
+          setLoading(false)
         } catch (error) {
           console.log(error);
         }
@@ -72,6 +75,14 @@ const Home = ({
           {post.map((singlePost) => (
             <Post key={singlePost._id} post={singlePost} />
           ))}
+          {/* loader  */}
+            {loading ? (
+          <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
+          </div>
+        ) : (
+          ""
+        )}
           {/* <Post/> */}
         </div>
         {/* suggestion */}

@@ -13,6 +13,7 @@ const Explore = ({
 }) => {
   const { user } = useSelector((state) => state.user);
   const { myPost } = useSelector((state) => state.myPost);
+  const [loading, setLoading] = useState(false)
   const userPostArray = user.user.posts;
 
   const [randomPost, setRandomPost] = useState([]);
@@ -22,6 +23,7 @@ const Explore = ({
     const fetchPost = async () => {
       const token = user.token;
       try {
+        setLoading(true)
         const res = await axios.get(`${api}/post/random`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -43,6 +45,7 @@ const Explore = ({
         );
         setRandomPost(updatedPosts);
         dispatch(addPosts(updatedPosts));
+        setLoading(false)
       } catch (error) {
         console.log(error);
       }
@@ -70,6 +73,13 @@ const Explore = ({
               className="w-full h-auto"
             />
           ))}
+            {loading ? (
+          <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
+          </div>
+        ) : (
+          ""
+        )}
         </div>
       </div>
     </div>

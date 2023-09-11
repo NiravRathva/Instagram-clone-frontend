@@ -18,7 +18,7 @@ const CreatePost = ({ setOpenCreatePost }) => {
   const [caption, setCaption] = useState("");
   const [downloadURL, setDownloadURL] = useState("");
   const [progress, setProgress] = useState(0);
-
+  const [loading, setLoading] = useState(false)
 
   const { user } = useSelector((state) => state.user);
 
@@ -59,7 +59,7 @@ const CreatePost = ({ setOpenCreatePost }) => {
   }, [postFile]);
   const upload = async () => {
     try {
-      
+      setLoading(true)
       const res = await axios.post(
         `${api}/post`,
         { caption, image: downloadURL },
@@ -70,6 +70,7 @@ const CreatePost = ({ setOpenCreatePost }) => {
         }
       );
       dispatch(addPostIdToUser(res.data._id));
+      setLoading(false)
     } catch (error) {
       console.log("Upload error:", error);
     }
@@ -109,6 +110,13 @@ const CreatePost = ({ setOpenCreatePost }) => {
           Close
         </button>
       </div>
+      {loading ? (
+          <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
+          </div>
+        ) : (
+          ""
+        )}
     </div>
   );
 };
