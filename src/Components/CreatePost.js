@@ -12,17 +12,18 @@ import { useSelector } from "react-redux";
 import initializeFirebaseApp from "../firebaseConfig.js";
 import { useDispatch } from "react-redux";
 import { addPostIdToUser } from "../Store/userSlice.js";
-import config from "../config.js"
+import config from "../config.js";
 const CreatePost = ({ setOpenCreatePost }) => {
   const [postFile, setPostFile] = useState(null);
   const [caption, setCaption] = useState("");
   const [downloadURL, setDownloadURL] = useState("");
   const [progress, setProgress] = useState(0);
 
+
   const { user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
-  const api=config.apiUrl
+  const api = config.apiUrl;
   // Initialize Firebase App using the API key from Redux store
   const app = initializeFirebaseApp(user.firebaseApiKey);
   // Initialize Firebase Storage
@@ -58,6 +59,7 @@ const CreatePost = ({ setOpenCreatePost }) => {
   }, [postFile]);
   const upload = async () => {
     try {
+      
       const res = await axios.post(
         `${api}/post`,
         { caption, image: downloadURL },
@@ -67,9 +69,7 @@ const CreatePost = ({ setOpenCreatePost }) => {
           },
         }
       );
-      console.log(res.data);
-      dispatch(addPostIdToUser(res.data._id))
-      console.log(res.data)
+      dispatch(addPostIdToUser(res.data._id));
     } catch (error) {
       console.log("Upload error:", error);
     }

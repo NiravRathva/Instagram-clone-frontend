@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import ExploreIcon from "@mui/icons-material/Explore";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
@@ -18,7 +18,7 @@ import { logout } from "../Store/userSlice";
 import { useDispatch } from "react-redux";
 const Sidebar = ({ toggleDarkMode, isDarkMode, setOpenCreatePost }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
+  const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644);
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -36,7 +36,6 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  console.log(showIconOnly)
   return (
     <div className="  flex flex-col justify-center items-center">
       {/* logo  */}
@@ -56,8 +55,8 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
             } rounded-md my-1`}
           >
             <Link to="/">
-              
-              <HomeIcon fontSize="medium" className="mr-4" />  {!showIconOnly &&  "Home"}
+              <HomeIcon fontSize="medium" className="mr-4" />{" "}
+              {!showIconOnly && "Home"}
             </Link>
           </li>
           <li
@@ -65,9 +64,9 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
-            <Link >
+            <Link>
               <SearchIcon fontSize="medium" className="mr-4" />
-             {!showIconOnly &&  "Search"}
+              {!showIconOnly && "Search"}
             </Link>
           </li>
           <li
@@ -77,7 +76,7 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
           >
             <Link to="/explore">
               <ExploreIcon fontSize="medium" className="mr-4" />
-              {!showIconOnly &&  "Explore"}
+              {!showIconOnly && "Explore"}
             </Link>
           </li>
           <li
@@ -85,9 +84,9 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
-            <Link >
+            <Link>
               <VideoLibraryIcon fontSize="medium" className="mr-4" />
-              {!showIconOnly &&  "Reels"}
+              {!showIconOnly && "Reels"}
             </Link>
           </li>
           <li
@@ -97,7 +96,7 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
           >
             <Link to="/messages">
               <MessageIcon fontSize="medium" className="mr-4" />
-              {!showIconOnly &&  "Messages"}
+              {!showIconOnly && "Messages"}
             </Link>
           </li>
           <li
@@ -107,8 +106,7 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
           >
             <Link>
               <FavoriteBorderIcon fontSize="medium" className="mr-4" />
-              {!showIconOnly &&  "Notification"}
-              
+              {!showIconOnly && "Notification"}
             </Link>
           </li>
           <li
@@ -118,8 +116,7 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
           >
             <Link onClick={() => setOpenCreatePost(true)}>
               <AddCircleOutlineIcon fontSize="medium" className="mr-4" />
-              {!showIconOnly &&  "Create"}
-              
+              {!showIconOnly && "Create"}
             </Link>
           </li>
           <li
@@ -129,8 +126,7 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
           >
             <Link to="/profile">
               <AccountCircleIcon fontSize="medium" className="mr-4" />
-              {!showIconOnly &&  "Profile"}
-              
+              {!showIconOnly && "Profile"}
             </Link>
           </li>
           <li
@@ -138,10 +134,9 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
-            <Link  onClick={toggleDropdown}>
+            <Link onClick={toggleDropdown}>
               <MenuIcon fontSize="medium" className="mr-4" />
-              {!showIconOnly &&  "More"}
-              
+              {!showIconOnly && "More"}
             </Link>
             {/* more Dropdown  */}
             {isDropdownOpen && (
@@ -157,7 +152,7 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
                     }`}
                   >
                     <button onClick={toggleDarkMode}>
-                      <LightModeIcon /> {!showIconOnly &&  "Light Mode"}
+                      <LightModeIcon /> {!showIconOnly && "Light Mode"}
                     </button>
                   </li>
                 ) : (
@@ -167,7 +162,7 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
                     }`}
                   >
                     <Link onClick={toggleDarkMode}>
-                      <DarkModeIcon /> {!showIconOnly &&  "Dark Mode"}
+                      <DarkModeIcon /> {!showIconOnly && "Dark Mode"}
                     </Link>
                   </li>
                 )}
@@ -178,7 +173,8 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
                   }`}
                 >
                   <Link to="#">
-                    <SettingsIcon />{!showIconOnly &&  "Settings"}
+                    <SettingsIcon />
+                    {!showIconOnly && "Settings"}
                   </Link>
                 </li>
                 <li
@@ -186,8 +182,8 @@ const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
                     isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
                   }`}
                 >
-                  <Link onClick={()=>dispatch(logout())}>
-                    <LogoutIcon /> {!showIconOnly &&  "Log out"}
+                  <Link onClick={() => dispatch(logout())}>
+                    <LogoutIcon /> {!showIconOnly && "Log out"}
                   </Link>
                 </li>
               </ul>

@@ -12,7 +12,7 @@ import { red } from "@mui/material/colors";
 import { followUser } from "../Store/userSlice";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import axios from "axios";
-import config from "../config.js"
+import config from "../config.js";
 const Post = ({ post }) => {
   const { user } = useSelector((state) => state.user);
   const userId = user.user._id;
@@ -20,7 +20,7 @@ const Post = ({ post }) => {
   const isPostLiked = post.likes.includes(userId);
   const isUserFollowing = user.user.following.includes(post.user);
 
-  const api=config.apiUrl
+  const api = config.apiUrl;
   const postOwener = post.user;
   // handle like dislike of post
   const handleLike = () => {
@@ -75,12 +75,16 @@ const Post = ({ post }) => {
         </div>
         {/* more Icon */}
         <div>
-         {!isUserFollowing && !(postOwener === userId)?( <button
-            className="bg-blue-500 text-white px-3 py-1 rounded-md font-semibold"
-            onClick={handleFollow}
-          >
-            Follow
-          </button>):""}
+          {!isUserFollowing && !(postOwener === userId) ? (
+            <button
+              className="bg-blue-500 text-white px-3 py-1 rounded-md font-semibold"
+              onClick={handleFollow}
+            >
+              Follow
+            </button>
+          ) : (
+            ""
+          )}
           <MoreHorizIcon className="text-gray-500 ml-2" />
         </div>
       </div>
@@ -93,13 +97,17 @@ const Post = ({ post }) => {
         {/* likes, comment and share */}
         <div className="flex space-x-2 ">
           {isPostLiked ? (
-            <FavoriteIcon onClick={handleLike} sx={{ color: red[500] }} fontSize="small"/>
+            <FavoriteIcon
+              onClick={handleLike}
+              sx={{ color: red[500] }}
+              fontSize="small"
+            />
           ) : (
-            <FavoriteBorderIcon onClick={handleLike} fontSize="small"/>
+            <FavoriteBorderIcon onClick={handleLike} fontSize="small" />
           )}
 
-          <CommentIcon fontSize="small"/>
-          <SendIcon fontSize="small"/>
+          <CommentIcon fontSize="small" />
+          <SendIcon fontSize="small" />
         </div>
         {/* save Icon */}
         <div className="">

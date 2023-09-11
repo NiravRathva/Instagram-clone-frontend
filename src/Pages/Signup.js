@@ -18,11 +18,9 @@ const Signup = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
-  const [loading ,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   // Hook for navigation
   const navigate = useNavigate();
-
-  
 
   const user = useSelector((state) => state.user);
   const api = config.apiUrl;
@@ -40,7 +38,7 @@ const Signup = () => {
       return;
     }
     try {
-      setLoading(true)
+      setLoading(true);
       // Sending a POST request to the signup API endpoint
       const res = await axios.post(`${api}/auth/signup`, {
         email: email,
@@ -48,19 +46,14 @@ const Signup = () => {
         userName: userName,
         password: password,
       });
-      console.log(res);
       // Navigating to the login page on successful signup
-      console.log(loading)
 
-      setLoading(false)
-      console.log(loading)
+      setLoading(false);
       navigate("/login");
-
-
     } catch (error) {
-      setLoading(false)
-      setErr("something went wrong")
-      
+      setLoading(false);
+      setErr("something went wrong");
+
       console.log(error);
     }
   };
@@ -132,7 +125,7 @@ const Signup = () => {
               Username and email should be unique.
             </div>
           )}
-          {err !== "" &&<h4 className="text-red-400">{err}</h4>}
+          {err !== "" && <h4 className="text-red-400">{err}</h4>}
           {loading ? (
             <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
               <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>

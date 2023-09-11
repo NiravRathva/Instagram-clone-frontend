@@ -4,7 +4,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import config from "../config.js"
+import config from "../config.js";
 const Profile = ({
   toggleDarkMode,
   isDarkMode,
@@ -12,9 +12,8 @@ const Profile = ({
   openCreatePost,
 }) => {
   const { user } = useSelector((state) => state.user);
-  const api=config.apiUrl
+  const api = config.apiUrl;
   const userPost = user.user.posts;
-  console.log(user);
   const token = user.token;
   const [userPosts, setUserPosts] = useState([]);
 
@@ -23,14 +22,11 @@ const Profile = ({
       try {
         // Create an array of promises for fetching user posts
         const postPromises = userPost.map(async (postId) => {
-          const response = await axios.get(
-            `${api}/post/${postId}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+          const response = await axios.get(`${api}/post/${postId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
           return response.data; // Return the post data
         });
 
@@ -43,7 +39,6 @@ const Profile = ({
 
     fetchUserPosts();
   }, [userPost, token]);
-  console.log(userPosts);
   return (
     <div className="flex">
       {/* Sidebar */}
@@ -80,7 +75,9 @@ const Profile = ({
               </div>
               <div className="text-center mr-8">
                 <img
-                  className={`w-20 h-20 rounded-full m-2 ${isDarkMode?"filter invert":""}`}
+                  className={`w-20 h-20 rounded-full m-2 ${
+                    isDarkMode ? "filter invert" : ""
+                  }`}
                   src="https://img.icons8.com/?size=512&id=1501&format=png"
                   alt=""
                 />
@@ -119,14 +116,19 @@ const Profile = ({
             {/* Followers and following */}
             <div className="flex justif-normal mb-1 lg:mb-4 px-2 lg:px-8">
               <h6 className="lg:text-lg font-semibold mr-2 lg:mr-8">
-                <span className="mr-1 lg:mr-2">{user.user.posts.length}</span>posts
+                <span className="mr-1 lg:mr-2">{user.user.posts.length}</span>
+                posts
               </h6>
               <h6 className="lg:text-lg font-semibold mr-2 lg:mr-8">
-                <span className="mr-1 lg:mr-2">{user.user.followers.length}</span>
+                <span className="mr-1 lg:mr-2">
+                  {user.user.followers.length}
+                </span>
                 followers
               </h6>
               <h6 className="lg:text-lg font-semibold mr-2 lg:mr-8">
-                <span className="mr-1 lg:mr-2">{user.user.following.length}</span>
+                <span className="mr-1 lg:mr-2">
+                  {user.user.following.length}
+                </span>
                 following
               </h6>
             </div>

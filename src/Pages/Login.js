@@ -16,7 +16,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
-  // console.log(user.data);
   const dispatch = useDispatch();
   // Hook for navigation
   const navigate = useNavigate();
@@ -34,14 +33,12 @@ const Login = () => {
       // Sending a POST request to the signin API endpoint
       const res = await axios.post(`${api}/auth/signin`, { email, password });
       dispatch(loginSuccess(res.data));
-      console.log(res.data);
       // Navigating to the home page on successful login
       navigate("/");
     } catch (error) {
       console.log(error);
       dispatch(loginFailure());
       setErr("something went wrong");
-      console.log(err);
     }
   };
   return (
@@ -73,7 +70,9 @@ const Login = () => {
           >
             Log in
           </button>
-          {err !== "" && <h4 className="text-red-300"> something went wrong</h4>}
+          {err !== "" && (
+            <h4 className="text-red-300"> something went wrong</h4>
+          )}
         </form>
         <div className="flex items-center justify-center w-full mt-4">
           <span className="border-t border-gray-400 w-28"></span>
@@ -89,7 +88,7 @@ const Login = () => {
           <p className="text-blue-500 text-xs my-4">Forgot password</p>
         </div>
       </div>
-      
+
       {/* don't have an account section  */}
       <div className="text-center border-2 border-slate-300 p-4 text-sm">
         Don't have an account?{" "}
@@ -105,13 +104,13 @@ const Login = () => {
 
         {/* showing loader  */}
         {user.loading ? (
-           <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
-           <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
-         </div>
+          <div class="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
+          </div>
         ) : (
-        ""
+          ""
         )}
-       
+
         <div className="flex justify-center space-x-2 content-center">
           <img
             className="max-w-full h-16"
