@@ -64,9 +64,9 @@ const Home = ({
   }, [user.token, userFollowing, myrandomPost]);
 
   return (
-    <div className="flex">
+    <div className="flex  ">
       {/* Sidebar */}
-      <div className="w-1/6 h-screen   border-r border-gray-700">
+      <div className="w-1/5 lg:w-1/6 h-screen   border-r border-gray-700">
         <Sidebar
           isDarkMode={isDarkMode}
           toggleDarkMode={toggleDarkMode}
@@ -78,14 +78,14 @@ const Home = ({
       {/* Main Content */}
       <div className="flex  flex-1 ml-1/6 w-5/6  p-4  overflow-y-auto">
         {/* posts */}
-        <div className="w-2/3">
+        <div className="w-4/5 lg:w-2/3">
           {post.map((singlePost) => (
             <Post key={singlePost._id} post={singlePost} />
           ))}
           {/* <Post/> */}
         </div>
         {/* suggestion */}
-        <div className="w-1/3 border-l border-gray-700">
+        <div className="w-1/3 border-l border-gray-700 hidden lg:block">
           <Suggestion />
         </div>
       </div>

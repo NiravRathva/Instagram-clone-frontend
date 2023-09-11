@@ -66,7 +66,7 @@ const Post = ({ post }) => {
   };
 
   return (
-    <div className=" rounded-md shadow-lg p-8 max-w-md mb-4 mx-auto border-b  border-gray-800">
+    <div className=" rounded-md shadow-lg p-4 lg-p-8 max-w-4xl lg:max-w-md mb-4 mx-auto border-b  border-gray-800">
       <div className="flex items-center justify-between mb-2">
         {/* userName and profile */}
         <div className="flex items-center">
@@ -80,7 +80,7 @@ const Post = ({ post }) => {
             onClick={handleFollow}
           >
             Follow
-          </button>):"following"}
+          </button>):""}
           <MoreHorizIcon className="text-gray-500 ml-2" />
         </div>
       </div>
@@ -91,15 +91,15 @@ const Post = ({ post }) => {
 
       <div className="mt-4 flex justify-between ">
         {/* likes, comment and share */}
-        <div className="flex space-x-4 ">
+        <div className="flex space-x-2 ">
           {isPostLiked ? (
-            <FavoriteIcon onClick={handleLike} sx={{ color: red[500] }} />
+            <FavoriteIcon onClick={handleLike} sx={{ color: red[500] }} fontSize="small"/>
           ) : (
-            <FavoriteBorderIcon onClick={handleLike} />
+            <FavoriteBorderIcon onClick={handleLike} fontSize="small"/>
           )}
 
-          <CommentIcon />
-          <SendIcon />
+          <CommentIcon fontSize="small"/>
+          <SendIcon fontSize="small"/>
         </div>
         {/* save Icon */}
         <div className="">

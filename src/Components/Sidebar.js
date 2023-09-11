@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import ExploreIcon from "@mui/icons-material/Explore";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
@@ -18,11 +18,25 @@ import { logout } from "../Store/userSlice";
 import { useDispatch } from "react-redux";
 const Sidebar = ({ toggleDarkMode, isDarkMode, setOpenCreatePost }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+const [showIconOnly, setShowIconOnly] = useState(window.innerWidth <= 644)
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
   const dispatch = useDispatch();
+
+  // Add an event listener to update showIconOnly when the window is resized
+  useEffect(() => {
+    const handleResize = () => {
+      setShowIconOnly(window.innerWidth <= 644);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  console.log(showIconOnly)
   return (
     <div className="  flex flex-col justify-center items-center">
       {/* logo  */}
@@ -35,94 +49,99 @@ const Sidebar = ({ toggleDarkMode, isDarkMode, setOpenCreatePost }) => {
       </div>
       {/* Links  */}
       <div>
-        <ul className="p-4">
+        <ul className=" p-1 lg:p-4">
           <li
-            className={` p-3  ${
+            className={` p-1 lg:p-3  ${
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
             <Link to="/">
-              <HomeIcon fontSize="medium" className="mr-4" /> Home
+              
+              <HomeIcon fontSize="medium" className="mr-4" />  {!showIconOnly &&  "Home"}
             </Link>
           </li>
           <li
-            className={` p-3  ${
+            className={` p-1 lg:p-3  ${
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
             <Link >
               <SearchIcon fontSize="medium" className="mr-4" />
-              Search
+             {!showIconOnly &&  "Search"}
             </Link>
           </li>
           <li
-            className={` p-3  ${
+            className={` p-1 lg:p-3  ${
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
             <Link to="/explore">
               <ExploreIcon fontSize="medium" className="mr-4" />
-              Explore
+              {!showIconOnly &&  "Explore"}
             </Link>
           </li>
           <li
-            className={` p-3 ${
+            className={` p-1 lg:p-3 ${
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
             <Link >
               <VideoLibraryIcon fontSize="medium" className="mr-4" />
-              Reels
+              {!showIconOnly &&  "Reels"}
             </Link>
           </li>
           <li
-            className={` p-3 ${
+            className={` p-1 lg:p-3 ${
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
             <Link to="/messages">
               <MessageIcon fontSize="medium" className="mr-4" />
-              Messages
+              {!showIconOnly &&  "Messages"}
             </Link>
           </li>
           <li
-            className={` p-3 ${
+            className={` p-1 lg:p-3 ${
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
             <Link>
               <FavoriteBorderIcon fontSize="medium" className="mr-4" />
-              Notification
+              {!showIconOnly &&  "Notification"}
+              
             </Link>
           </li>
           <li
-            className={` p-3 ${
+            className={` p-1 lg:p-3 ${
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
             <Link onClick={() => setOpenCreatePost(true)}>
               <AddCircleOutlineIcon fontSize="medium" className="mr-4" />
-              Create
+              {!showIconOnly &&  "Create"}
+              
             </Link>
           </li>
           <li
-            className={` p-3 ${
+            className={` p-1 lg:p-3 ${
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
             <Link to="/profile">
               <AccountCircleIcon fontSize="medium" className="mr-4" />
-              Profile
+              {!showIconOnly &&  "Profile"}
+              
             </Link>
           </li>
           <li
-            className={`relative p-3 ${
+            className={`relative p-1 lg:p-3 ${
               isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
             } rounded-md my-1`}
           >
             <Link  onClick={toggleDropdown}>
               <MenuIcon fontSize="medium" className="mr-4" />
-              More
+              {!showIconOnly &&  "More"}
+              
             </Link>
             {/* more Dropdown  */}
             {isDropdownOpen && (
@@ -133,42 +152,42 @@ const Sidebar = ({ toggleDarkMode, isDarkMode, setOpenCreatePost }) => {
               >
                 {isDarkMode ? (
                   <li
-                    className={`p-3 ${
+                    className={`p-1 lg:p-3 ${
                       isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
                     }`}
                   >
                     <button onClick={toggleDarkMode}>
-                      <LightModeIcon /> Light Mode
+                      <LightModeIcon /> {!showIconOnly &&  "Light Mode"}
                     </button>
                   </li>
                 ) : (
                   <li
-                    className={`p-3 ${
+                    className={`p-1 lg:p-3 ${
                       isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
                     }`}
                   >
                     <Link onClick={toggleDarkMode}>
-                      <DarkModeIcon /> Dark Mode
+                      <DarkModeIcon /> {!showIconOnly &&  "Dark Mode"}
                     </Link>
                   </li>
                 )}
 
                 <li
-                  className={`p-3 ${
+                  className={`p-1 lg:p-3 ${
                     isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
                   }`}
                 >
                   <Link to="#">
-                    <SettingsIcon /> Settings
+                    <SettingsIcon />{!showIconOnly &&  "Settings"}
                   </Link>
                 </li>
                 <li
-                  className={`p-3 ${
+                  className={`p-1 lg:p-3 ${
                     isDarkMode ? "hover:bg-gray-900" : "hover:bg-gray-300"
                   }`}
                 >
                   <Link onClick={()=>dispatch(logout())}>
-                    <LogoutIcon /> Log out
+                    <LogoutIcon /> {!showIconOnly &&  "Log out"}
                   </Link>
                 </li>
               </ul>
